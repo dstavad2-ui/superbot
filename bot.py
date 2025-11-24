@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 import asyncio
 import logging
+import os
 from telethon import TelegramClient, events
 from PIL import Image
 from flask import Flask
 from threading import Thread
 from queue import Queue
+from dotenv import load_dotenv
 
 # -------------------------
-# KONSTANTER
+# LOAD ENV
 # -------------------------
-API_ID = 14915416750
-API_HASH = "Production configuration HASH"
-BOT_TOKEN = "8261354099:AAEewnT0GDcOl5-ARokNVuO5i3zMuLyeG7g"
-MEMORY_LIMIT = 20
+load_dotenv()
+API_ID = int(os.getenv("API_ID"))
+API_HASH = os.getenv("API_HASH")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+MEMORY_LIMIT = int(os.getenv("MEMORY_LIMIT", 20))
 
 # -------------------------
 # LOGGING / SELF-HEAL
