@@ -3,7 +3,7 @@ services:
     name: superbot
     env: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    buildCommand: python deploy_superbot.py
     startCommand: python bot.py
-    pythonVersion: 3.11
+    pythonVersion: 3.13
     autoDeploy: true
