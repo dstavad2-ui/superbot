@@ -1,0 +1,4 @@
+API_ID=din_api_id
+API_HASH=din_api_hash
+BOT_TOKEN=din_bot_token
+MEMORY_LIMIT=20
