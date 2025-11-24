@@ -13,7 +13,7 @@ from queue import Queue
 API_ID = 14915416750
 API_HASH = "Production configuration HASH"
 BOT_TOKEN = "8261354099:AAEewnT0GDcOl5-ARokNVuO5i3zMuLyeG7g"
-MEMORY_LIMIT = 20  # antal prompts at huske
+MEMORY_LIMIT = 20
 
 # -------------------------
 # LOGGING / SELF-HEAL
@@ -28,11 +28,9 @@ def self_heal(msg):
 # HEARTBEAT SERVER
 # -------------------------
 app = Flask(__name__)
-
 @app.route("/")
 def alive():
     return "Bot online", 200
-
 def run_flask():
     app.run(host="0.0.0.0", port=10000)
 
@@ -51,13 +49,12 @@ async def mistral_worker():
     while True:
         try:
             event, prompt = mistral_queue.get()
-            # Hold hukommelse for koherens
             mistral_memory.append(f"User: {prompt}")
             if len(mistral_memory) > MEMORY_LIMIT:
                 mistral_memory.pop(0)
             context = "\n".join(mistral_memory)
             
-            # Integrer dit Mistral backend her
+            # Din Mistral backend integration her
             response = f"(Mistral svar baseret på kontekst:\n{context})"
             mistral_memory.append(f"Mistral: {response}")
             
@@ -74,9 +71,7 @@ async def mistral_worker():
 # -------------------------
 @client.on(events.NewMessage(pattern="/start"))
 async def start(event):
-    await event.respond(
-        "/ask — Mistral AI\n/id — Din ID\n/ping — System check\n/nft — Konverter billede"
-    )
+    await event.respond("/ask — Mistral AI\n/id — Din ID\n/ping — System check\n/nft — Konverter billede")
 
 @client.on(events.NewMessage(pattern="/ask"))
 async def ask_ai(event):
